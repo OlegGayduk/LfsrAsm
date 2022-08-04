@@ -1,0 +1,7 @@
+﻿  Assembling Source.asm...
+  main.cpp
+G:\C#\C\C\main.cpp(24,21): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+G:\C#\C\C\main.cpp(31,21): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+G:\C#\C\C\main.cpp(40,20): warning C4018: <: несоответствие типов со знаком и без знака
+G:\C#\C\C\main.cpp(47,20): warning C4018: <: несоответствие типов со знаком и без знака
+  C.vcxproj -> G:\C#\C\Debug\C.exe

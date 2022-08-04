@@ -1,0 +1,98 @@
+Microsoft (R) Macro Assembler Version 14.28.29336.0	    03/27/21 15:41:47
+Source.asm						     Page 1 - 1
+
+
+				Title Сложение двух чисел; Заголовок программы
+				.686; Тип микропроцессора
+				.MODEL FLAT, C ; Модель памяти -Win32 (начиная с i386) и язык программирования
+				.STACK 256; Сегмент стека и его размер
+ 00000000			.DATA; Сегментданных
+ 00000000			.CODE; Сегмент кода программы
+				;-----------External usage-------------------------
+				; Возвращаемое значение процедуры во внешнее приложение
+				EXTRN num : byte
+				EXTRN sizen : byte
+				EXTRN lengthn : byte
+				;-----------Function definitions-------------------
+				; Описание экспортируемой функции
+				PUBLIC C lfsr ;
+ 00000000			lfsr PROC far; Заголовок экспортируемой функции
+				;far -возможность обращения к процедуре из другого участка кода проекта
+ 00000000  33 C0		xor eax,eax
+ 00000002  33 C9		    xor ecx,ecx
+ 00000004  33 D2		    xor edx,edx
+ 00000006  33 DB		    xor ebx,ebx 
+				    
+ 00000008  8A 0D 00000000 E	    mov cl,sizen
+ 0000000E  8A 15 00000000 E	    mov dl,num
+				    
+ 00000014			    cycle:
+ 00000014  D1 E0		    shl eax,1
+ 00000016  52			    push edx 
+ 00000017  83 E2 01		    and edx,1
+ 0000001A  0B C2		    or eax,edx
+ 0000001C  5A			    pop edx
+				    
+ 0000001D  52			    push edx
+ 0000001E  D1 EA		    shr edx,1
+ 00000020  5B			    pop ebx
+ 00000021  33 D3		    xor edx,ebx
+ 00000023  83 E2 01		    and edx,1
+ 00000026  51			    push ecx
+ 00000027  8A 0D 00000000 E	    mov cl,lengthn
+ 0000002D  D3 E2		    shl edx, cl
+ 0000002F  59			    pop ecx
+ 00000030  D1 EB		    shr ebx,1
+ 00000032  0B D3		    or edx,ebx
+				    
+ 00000034  FE C9		    dec cl
+ 00000036  80 F9 00		    cmp cl,0
+ 00000039  75 D9		    jnz cycle
+				    
+				; Оператор Return from procedure обеспечивает возврат управления вызывающей программе
+ 0000003B  C3			retn 
+ 0000003C			lfsr ENDP
+				END
+Microsoft (R) Macro Assembler Version 14.28.29336.0	    03/27/21 15:41:47
+Source.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00000100 Para	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000003C Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+lfsr . . . . . . . . . . . . . .	P Far	 00000000 _TEXT	Length= 0000003C Public C
+  cycle  . . . . . . . . . . . .	L Near	 00000014 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000001h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+lengthn  . . . . . . . . . . . .	Byte	 00000000 FLAT	External C
+num  . . . . . . . . . . . . . .	Byte	 00000000 FLAT	External C
+sizen  . . . . . . . . . . . . .	Byte	 00000000 FLAT	External C
+
+	   0 Warnings
+	   0 Errors
